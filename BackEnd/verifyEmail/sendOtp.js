@@ -2,17 +2,28 @@ import nodemailer from "nodemailer";
 import "dotenv/config";
 
 const sendOTPEmail = async (otp, user) => {
+  const mailUser = process.env.MAIL_USER?.trim();
+  const mailPass = process.env.MAIL_PASS?.trim()?.replace(/\s+/g, "");
+
+  if (!mailUser || !mailPass) {
+    throw new Error("MAIL_USER or MAIL_PASS is missing");
+  }
+
   try {
     const mailTransporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
+        user: mailUser,
+        pass: mailPass,
       },
     });
 
+    await mailTransporter.verify();
+
     const mailDetails = {
-      from: process.env.MAIL_USER,
+      from: mailUser,
       to: user.email,
       subject: "Your OTP Code - LKart",
       html: `
@@ -20,7 +31,7 @@ const sendOTPEmail = async (otp, user) => {
         <h2>Email OTP Verification</h2>
         <p>Hi ${user.firstName},</p>
         <p>Your One-Time Password (OTP) for verification is:</p>
-        
+
         <div style="
           font-size: 24px;
           font-weight: bold;
@@ -40,16 +51,16 @@ const sendOTPEmail = async (otp, user) => {
           If you did not request this, please ignore this email.
         </p>
 
-        <p>– Team LKart</p>
+        <p>- Team LKart</p>
       </div>
       `,
     };
 
-    await mailTransporter.sendMail(mailDetails);
-
-    console.log("OTP Email sent successfully");
+    const info = await mailTransporter.sendMail(mailDetails);
+    console.log(`OTP email sent to ${user.email}. Message ID: ${info.messageId}`);
   } catch (error) {
-    console.log("Error sending OTP email:", error.message);
+    console.error("Error sending OTP email:", error?.message || error);
+    throw error;
   }
 };
 
