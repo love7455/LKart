@@ -36,6 +36,9 @@ const Signup = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
+        if (res.data.otp) {
+          toast.info(`Demo OTP: ${res.data.otp}`);
+        }
         navigate("/verify", { state: { email: formData.email } });
       }
     } catch (error) {

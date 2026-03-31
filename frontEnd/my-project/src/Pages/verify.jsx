@@ -56,6 +56,9 @@ const Verify = () => {
       });
       if (res.data.success) {
         toast.success(res.data.message || "OTP sent again");
+        if (res.data.otp) {
+          toast.info(`Demo OTP: ${res.data.otp}`);
+        }
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Unable to resend OTP");

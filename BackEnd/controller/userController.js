@@ -8,6 +8,8 @@ import Cart from "../database/Models/cart.js";
 import cloudinary from "../utils/cloudinary.js";
 import ProductModel from "../database/Models/product.js";
 
+const shouldExposeOtpForDemo = process.env.ALLOW_OTP_IN_RESPONSE === "true";
+
 // create  new user
 const registerUser = async (req, res) => {
   try {
@@ -51,6 +53,7 @@ const registerUser = async (req, res) => {
       success: true,
       message: "User registered. OTP sent to your email",
       email: newUser.email,
+      ...(shouldExposeOtpForDemo ? { otp } : {}),
     });
   } catch (error) {
     return res.status(400).json({
@@ -196,6 +199,7 @@ const reVerify = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Verification OTP sent successfully",
+      ...(shouldExposeOtpForDemo ? { otp } : {}),
     });
   } catch (error) {
     res.status(500).json({
@@ -423,6 +427,7 @@ const forgetPassword = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "OTP Sent Successfully",
+      ...(shouldExposeOtpForDemo ? { otp } : {}),
     });
   } catch (error) {
     res.status(500).json({

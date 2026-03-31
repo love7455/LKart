@@ -33,6 +33,9 @@ const ForgetPassword = () => {
       });
       if (res.data.success) {
         toast.success("OTP sent to your email");
+        if (res.data.otp) {
+          toast.info(`Demo OTP: ${res.data.otp}`);
+        }
         setStep(2);
       }
     } catch (error) {
