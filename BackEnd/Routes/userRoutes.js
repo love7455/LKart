@@ -17,7 +17,7 @@ import {
 } from "../controller/userController.js";
 import isAuthenticated from "../middleWare/isAuthenticated.js";
 import isAdmin from "../middleWare/isAdmin.js";
-import upload from "../middleware/multer.js";
+import upload from "../middleWare/multer.js";
 
 const router = express.Router();
 
