@@ -35,14 +35,14 @@ const Products = () => {
         };
 
         let res = await axios.get(
-          "http://localhost:8000/api/v1/products/get-all-products",
+          "/api/v1/products/get-all-products",
           apiConfig,
         );
 
         if (res.data?.success && (!res.data.products || !res.data.products.length)) {
-          await axios.post("http://localhost:8000/api/v1/products/seed-demo", {}, apiConfig);
+          await axios.post("/api/v1/products/seed-demo", {}, apiConfig);
           res = await axios.get(
-            "http://localhost:8000/api/v1/products/get-all-products",
+            "/api/v1/products/get-all-products",
             apiConfig,
           );
         }
@@ -197,4 +197,5 @@ const Products = () => {
 };
 
 export default Products;
+
 

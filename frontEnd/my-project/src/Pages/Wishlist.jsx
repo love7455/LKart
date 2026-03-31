@@ -26,7 +26,7 @@ const Wishlist = () => {
       }
 
       try {
-        const res = await axios.get("http://localhost:8000/api/v1/user/wishlist", {
+        const res = await axios.get("/api/v1/user/wishlist", {
           headers: {
             "Content-Type": "application/json",
             Authorization: accessToken,
@@ -50,7 +50,7 @@ const Wishlist = () => {
     try {
       setProcessingId(productId);
       const res = await axios.post(
-        "http://localhost:8000/api/v1/user/wishlist/toggle",
+        "/api/v1/user/wishlist/toggle",
         { productId },
         {
           headers: {
@@ -74,7 +74,7 @@ const Wishlist = () => {
     try {
       setProcessingId(productId);
       const addCartRes = await axios.post(
-        "http://localhost:8000/api/v1/cart/add-to-cart",
+        "/api/v1/cart/add-to-cart",
         { productId },
         {
           headers: {
@@ -89,7 +89,7 @@ const Wishlist = () => {
       }
 
       const wishRes = await axios.post(
-        "http://localhost:8000/api/v1/user/wishlist/toggle",
+        "/api/v1/user/wishlist/toggle",
         { productId },
         {
           headers: {
@@ -191,4 +191,5 @@ const Wishlist = () => {
 };
 
 export default Wishlist;
+
 

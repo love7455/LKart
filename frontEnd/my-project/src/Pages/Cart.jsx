@@ -55,7 +55,7 @@ const Cart = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `http://localhost:8000/api/v1/cart/get-cart/${user._id}`,
+        `/api/v1/cart/get-cart/${user._id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const Cart = () => {
     try {
       setUpdatingId(productId);
       const res = await axios.put(
-        "http://localhost:8000/api/v1/cart/update-quantity",
+        "/api/v1/cart/update-quantity",
         {
           productId,
           quantity,
@@ -107,7 +107,7 @@ const Cart = () => {
 
   const verifyPayment = async (paymentResponse, orderId) => {
     const res = await axios.post(
-      "http://localhost:8000/api/v1/payment/verify-payment",
+      "/api/v1/payment/verify-payment",
       {
         orderId,
         ...paymentResponse,
@@ -134,7 +134,7 @@ const Cart = () => {
       }
 
       const orderRes = await axios.post(
-        "http://localhost:8000/api/v1/payment/create-order",
+        "/api/v1/payment/create-order",
         {},
         {
           headers: {
@@ -383,4 +383,5 @@ const Cart = () => {
 };
 
 export default Cart;
+
 

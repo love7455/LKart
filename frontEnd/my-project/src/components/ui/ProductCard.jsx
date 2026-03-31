@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
   const addCartHandler = async (prodId) => {
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/cart/add-to-cart",
+        "/api/v1/cart/add-to-cart",
         { productId: prodId },
         {
           headers: {
@@ -44,7 +44,7 @@ const ProductCard = ({ product }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/user/wishlist/toggle",
+        "/api/v1/user/wishlist/toggle",
         { productId: prodId },
         {
           headers: {
@@ -113,3 +113,4 @@ const ProductCard = ({ product }) => {
 };
 
 export default ProductCard;
+

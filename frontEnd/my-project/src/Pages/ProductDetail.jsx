@@ -24,7 +24,7 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:8000/api/v1/products/${id}`, {
+        const res = await axios.get(`/api/v1/products/${id}`, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -55,7 +55,7 @@ const ProductDetails = () => {
     try {
       setActionLoading(true);
       const res = await axios.post(
-        "http://localhost:8000/api/v1/cart/add-to-cart",
+        "/api/v1/cart/add-to-cart",
         { productId: id },
         {
           headers: {
@@ -86,7 +86,7 @@ const ProductDetails = () => {
     try {
       setActionLoading(true);
       const res = await axios.post(
-        "http://localhost:8000/api/v1/user/wishlist/toggle",
+        "/api/v1/user/wishlist/toggle",
         { productId: id },
         {
           headers: {
@@ -156,4 +156,5 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+
 

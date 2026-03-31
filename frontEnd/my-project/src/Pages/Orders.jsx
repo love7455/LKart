@@ -21,7 +21,7 @@ const Orders = () => {
       }
 
       try {
-        const res = await axios.get("http://localhost:8000/api/v1/orders/my-orders", {
+        const res = await axios.get("/api/v1/orders/my-orders", {
           headers: {
             "Content-Type": "application/json",
             Authorization: localStorage.getItem("accessToken"),
@@ -105,4 +105,5 @@ const Orders = () => {
 };
 
 export default Orders;
+
 

@@ -45,7 +45,7 @@ const Navbar = () => {
     const refreshToken = localStorage.getItem("refreshToken");
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/user/logout",
+        "/api/v1/user/logout",
         { refreshToken },
         {
           headers: {
@@ -81,7 +81,7 @@ const Navbar = () => {
       }
 
       try {
-        const res = await axios.get("http://localhost:8000/api/v1/user/wishlist", {
+        const res = await axios.get("/api/v1/user/wishlist", {
           headers: {
             "Content-Type": "application/json",
             authorization: localStorage.getItem("accessToken"),
@@ -261,3 +261,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

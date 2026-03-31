@@ -46,7 +46,7 @@ const ProfilePage = () => {
     if (selectedImage) formData.append("profilePic", selectedImage);
 
     try {
-      const res = await axios.put("http://localhost:8000/api/v1/user/update-profile", formData, {
+      const res = await axios.put("/api/v1/user/update-profile", formData, {
         headers: {
           authorization: localStorage.getItem("accessToken"),
         },
@@ -71,7 +71,7 @@ const ProfilePage = () => {
       }
 
       try {
-        const res = await axios.get("http://localhost:8000/api/v1/orders/my-orders", {
+        const res = await axios.get("/api/v1/orders/my-orders", {
           headers: {
             "Content-Type": "application/json",
             Authorization: localStorage.getItem("accessToken"),
@@ -266,3 +266,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
