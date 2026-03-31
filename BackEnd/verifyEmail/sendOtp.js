@@ -1,29 +1,14 @@
-import nodemailer from "nodemailer";
 import "dotenv/config";
+import { createMailer } from "../utils/mailer.js";
 
 const sendOTPEmail = async (otp, user) => {
-  const mailUser = process.env.MAIL_USER?.trim();
-  const mailPass = process.env.MAIL_PASS?.trim()?.replace(/\s+/g, "");
-
-  if (!mailUser || !mailPass) {
-    throw new Error("MAIL_USER or MAIL_PASS is missing");
-  }
-
   try {
-    const mailTransporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: mailUser,
-        pass: mailPass,
-      },
-    });
+    const { transporter, from } = createMailer();
 
-    await mailTransporter.verify();
+    await transporter.verify();
 
     const mailDetails = {
-      from: mailUser,
+      from,
       to: user.email,
       subject: "Your OTP Code - LKart",
       html: `
@@ -56,10 +41,17 @@ const sendOTPEmail = async (otp, user) => {
       `,
     };
 
-    const info = await mailTransporter.sendMail(mailDetails);
+    const info = await transporter.sendMail(mailDetails);
     console.log(`OTP email sent to ${user.email}. Message ID: ${info.messageId}`);
   } catch (error) {
-    console.error("Error sending OTP email:", error?.message || error);
+    console.error(
+      "Error sending OTP email:",
+      error?.message || error,
+      "code:",
+      error?.code,
+      "responseCode:",
+      error?.responseCode,
+    );
     throw error;
   }
 };

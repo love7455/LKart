@@ -1,20 +1,14 @@
-import nodemailer from "nodemailer";
 import "dotenv/config";
+import { createMailer } from "../utils/mailer.js";
 
 const ADMIN_SUPPORT_EMAIL = "2578LT@GMAIL.COM";
 
 const sendSupportNotification = async (ticket) => {
   try {
-    const mailTransporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
-      },
-    });
+    const { transporter, from } = createMailer();
 
     const mailDetails = {
-      from: process.env.MAIL_USER,
+      from,
       to: ADMIN_SUPPORT_EMAIL,
       subject: `New Support Ticket: ${ticket.subject}`,
       html: `
@@ -33,9 +27,16 @@ const sendSupportNotification = async (ticket) => {
       `,
     };
 
-    await mailTransporter.sendMail(mailDetails);
+    await transporter.sendMail(mailDetails);
   } catch (error) {
-    console.log("Error sending support notification:", error.message);
+    console.log(
+      "Error sending support notification:",
+      error?.message || error,
+      "code:",
+      error?.code,
+      "responseCode:",
+      error?.responseCode,
+    );
   }
 };
 
