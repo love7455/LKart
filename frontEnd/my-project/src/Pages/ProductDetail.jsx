@@ -124,11 +124,13 @@ const ProductDetails = () => {
 
   return (
     <div className="grid gap-6 p-4 sm:p-6 md:grid-cols-2 md:gap-10 md:p-8">
-      <img
-        src={product.productImages?.[0]?.url}
-        alt={product.productName}
-        className="h-[450px] w-full rounded-2xl object-cover shadow-md"
-      />
+      <div className="flex h-[450px] w-full items-center justify-center rounded-2xl bg-slate-100 p-4 shadow-md">
+        <img
+          src={product.productImages?.[0]?.url}
+          alt={product.productName}
+          className="h-full w-full object-contain"
+        />
+      </div>
 
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">{product.productName}</h1>

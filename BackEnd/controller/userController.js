@@ -43,7 +43,9 @@ const registerUser = async (req, res) => {
       otpExpiry,
       isVerified: false,
     });
-    await sendOTPEmail(otp, newUser);
+    sendOTPEmail(otp, newUser).catch((mailError) => {
+      console.error("OTP email send failed after signup:", mailError.message);
+    });
 
     return res.status(200).json({
       success: true,
@@ -187,8 +189,10 @@ const reVerify = async (req, res) => {
     const expiry = Date.now() + 10 * 60 * 1000;
     user.otp = otp;
     user.otpExpiry = expiry;
-    await sendOTPEmail(otp, user);
     await user.save();
+    sendOTPEmail(otp, user).catch((mailError) => {
+      console.error("OTP email send failed on reverify:", mailError.message);
+    });
     return res.status(200).json({
       success: true,
       message: "Verification OTP sent successfully",
@@ -412,7 +416,9 @@ const forgetPassword = async (req, res) => {
 
     await existingUser.save();
 
-    await sendOTPEmail(otp, existingUser);
+    sendOTPEmail(otp, existingUser).catch((mailError) => {
+      console.error("OTP email send failed on forget-password:", mailError.message);
+    });
 
     res.status(200).json({
       success: true,

@@ -82,11 +82,11 @@ const ProductCard = ({ product }) => {
         <Heart className="h-4 w-4" fill={isWishlisted ? "currentColor" : "none"} />
       </button>
 
-      <div className="overflow-hidden">
+      <div className="h-56 overflow-hidden bg-slate-100">
         <img
           src={product.productImages?.[0]?.url}
           alt={product.productName}
-          className="h-56 w-full object-cover transition duration-500 hover:scale-110"
+          className="h-full w-full object-contain p-2 transition duration-300 hover:scale-105"
         />
       </div>
 

@@ -5,7 +5,7 @@ const REFRESH_URL = `${API_BASE_URL}/api/v1/user/refresh-token`;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 15000,
+  timeout: 60000,
 });
 
 const clearAuth = () => {
@@ -83,9 +83,12 @@ api.interceptors.response.use(
 export default api;
 
 export const getApiErrorMessage = (error, fallback = "Something went wrong") => {
+  if (error?.code === "ECONNABORTED") {
+    return "Request timed out. Server may be waking up, please try again in a few seconds.";
+  }
+
   return (
     error?.response?.data?.message ||
-    (error?.code === "ECONNABORTED" ? "Request timed out. Please try again." : "") ||
     error?.message ||
     fallback
   );
