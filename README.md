@@ -1,7 +1,7 @@
 # LKart - E-commerce Project
 
-LKart is a full-stack e-commerce web app built with React + Vite (frontend), Node.js + Express (backend), MongoDB, Razorpay, and Cloudinary.
-
+LKart is a full-stack e-commerce web app built with React + Vite (frontend), Node.js + Express (backend), MongoDB, Razorpay, and Cloudinary .
+  
 ## Features
 - User auth with OTP verification and OTP-based password reset
 - Product listing, filtering, search, sorting, product detail
