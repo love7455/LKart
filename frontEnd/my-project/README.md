@@ -13,4 +13,4 @@ npm run build
 
 Backend is expected at `http://localhost:8000`.
 
-For full project setup and demo script, see root [`README.md`](../../README.md).
+For full project setup and demo script, see root [`README.md`](../../README.md)   .
